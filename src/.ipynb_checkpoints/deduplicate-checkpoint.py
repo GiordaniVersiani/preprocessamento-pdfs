@@ -2,6 +2,9 @@ import torch
 from sentence_transformers import SentenceTransformer, util
 from typing import List, Dict, Any
 
+# --- Função 1: Carregar o Modelo ---
+# (Esta lógica foi movida da Célula 6 para cá)
+
 def get_semantic_model(model_name: str = "sentence-transformers/all-MiniLM-L6-v2") -> SentenceTransformer:
     """
     Carrega o modelo de embedding, tentando usar a GPU (cuda)
@@ -17,6 +20,9 @@ def get_semantic_model(model_name: str = "sentence-transformers/all-MiniLM-L6-v2
     model = SentenceTransformer(model_name, device=device)
     return model
 
+# --- Função 2: O "Worker" de Deduplicação ---
+# (Esta é a função que a Célula 6 irá chamar)
+
 def deduplicate_semantically(
     blocks: List[Dict[str, Any]], 
     model: SentenceTransformer,
@@ -30,16 +36,19 @@ def deduplicate_semantically(
     """
     
     clean_blocks = []
-    new_embeddings_to_add = [] 
+    new_embeddings_to_add = [] # Embeddings únicos deste arquivo
 
+    # Divide os blocos em "curtos" (para manter) e "longos" (para analisar)
     blocks_to_keep = [b for b in blocks if len(b.get("texto_normalizado", "")) < min_length]
     blocks_to_process = [b for b in blocks if len(b.get("texto_normalizado", "")) >= min_length]
     
-    clean_blocks.extend(blocks_to_keep) 
+    clean_blocks.extend(blocks_to_keep) # Mantém todos os blocos curtos
     
     if not blocks_to_process:
+        # Nenhum bloco longo para processar
         return clean_blocks, global_seen_embeddings
 
+    # Gera embeddings para todos os blocos "longos" DE UMA VEZ
     texts_to_check = [b.get("texto_normalizado") for b in blocks_to_process]
     new_embeddings = model.encode(texts_to_check, convert_to_tensor=True, show_progress_bar=True)
     

@@ -1,13 +1,57 @@
+# ----------------------------------------
+# 1. CORE PYTHON, ML E DADOS
+# ----------------------------------------
+torch
+numpy
+pandas
+scikit-learn
+tqdm
+click
+
+# ----------------------------------------
+# 2. AMBIENTE JUPYTER E NOTEBOOK
+# ----------------------------------------
+jupyterlab
+ipywidgets
+
+# ----------------------------------------
+# 3. EXTRAÇÃO DE PDF E TEXTO
+# ----------------------------------------
+unstructured[pdf]
 pdfminer.six
 pdfplumber
-unidecode
-camelot-py[cv]
-thefuzz[fuzz]
+PyMuPDF
 pypdf
+unidecode
+thefuzz[fuzz]
+
+# (Opcional - Tabelas) 
+# camelot-py[cv]
+
+# ----------------------------------------
+# 4. ECOSSISTEMA LANGCHAIN
+# ----------------------------------------
 langchain
-sentence-transformers
-torch
+langchain_core
 langchain-community
+langchain-huggingface
 langchain-openai
-datasets
+
+# ----------------------------------------
+# 5. STACK HUGGING FACE (LLMs)
+# ----------------------------------------
+transformers
+accelerate
+bitsandbytes
+
+# ----------------------------------------
+# 6. EMBEDDINGS E VECTOR STORE
+# ----------------------------------------
+sentence-transformers
+faiss-cpu
+
+# ----------------------------------------
+# 7. AVALIAÇÃO (RAGAS)
+# ----------------------------------------
 ragas
+datasets
