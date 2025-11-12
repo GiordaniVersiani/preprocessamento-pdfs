@@ -1,0 +1,70 @@
+# Novo environment.yml (Estratégia Híbrida)
+# Usa Conda para o "Base" (Python, CUDA, Ferramentas de Sistema)
+# Usa Pip para todo o resto (pacotes de IA e Python)
+
+name: ia_projeto
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  # --- 1. Pacotes Conda (O Base) ---
+  - python=3.10
+  - pip   # Corrige o aviso que você recebeu!
+  
+  # Ferramentas de Sistema (Resolve o erro .dll)
+  - poppler
+  - tesseract
+  
+  # Stack PyTorch/CUDA (O Conda é melhor para isso)
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  
+  # Ferramentas do Ambiente
+  - jupyterlab
+  - ipywidgets
+  
+  # --- 2. Pacotes Pip (Todo o resto) ---
+  - pip:
+    # O stack principal do Unstructured (com o [pdf] que o pip entende)
+    - "unstructured[pdf]"
+    - PyMuPDF
+    - sentencepiece
+
+    # Dependências do Pandas para ler HTML (Etapa 4)
+    - lxml
+    - html5lib
+
+    # O stack de IA/ML
+    - transformers
+    - accelerate
+    - bitsandbytes
+    - sentence-transformers
+    - faiss-cpu
+    - datasets
+    - scikit-learn
+    - numpy
+    - pandas
+    - tqdm
+    - click
+
+    # O stack do LangChain
+    - langchain
+    - langchain-community
+    - langchain-openai
+    - langchain-huggingface
+    - langchain_core
+    - ragas
+    - langchain-text-splitters
+    
+    # Outras dependências de PDF
+    - pdfminer.six
+    - pdfplumber
+    - unidecode
+    - "thefuzz[fuzz]"
+    - pypdf
